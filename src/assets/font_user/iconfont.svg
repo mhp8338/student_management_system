@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2013-9-30: Created.
+-->
+<svg>
+<metadata>
+Created by iconfont
+</metadata>
+<defs>
+
+<font id="iconfont" horiz-adv-x="1024" >
+  <font-face
+    font-family="iconfont"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="1024"
+    ascent="896"
+    descent="-128"
+  />
+    <missing-glyph />
+    
+    <glyph glyph-name="yonghuming" unicode="&#58886;" d="M0.000205 782.131041v-796.262082A113.663955 113.663955 0 0 1 113.868959-127.999795h796.262082A114.073554 114.073554 0 0 1 1023.999795-14.131041V782.131041A114.073554 114.073554 0 0 1 910.131041 895.999795H113.868959A113.663955 113.663955 0 0 1 0.000205 782.131041z m682.598127-227.532709A170.598332 170.598332 0 1 0 512 725.401463a170.393532 170.393532 0 0 0 170.598332-170.803131z m-511.999795-455.065418c0 113.868754 227.532709 176.332729 341.401463 176.332729s341.401463-61.439975 341.401463-176.332729v-56.934377H170.598537v56.934377z"  horiz-adv-x="1024" />
+
+    
+
+
+  </font>
+</defs></svg>
