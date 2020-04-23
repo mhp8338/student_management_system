@@ -202,6 +202,525 @@ Mock.mock(RegExp('http://localhost:8081/test/deleteuser'), 'delete', () => {
     }
 })
 
+/*获取所有权限列表*/
+Mock.mock(RegExp('http://localhost:8081/test/rights/list'), 'get', () => {
+
+    return {
+        "data": [
+            {
+                "id": 101,
+                "authName": "用户管理",
+                "level": "0",
+                "pid": 0,
+                "path": "asd"
+            },
+            {
+                "id": 102,
+                "authName": "权限管理",
+                "level": "0",
+                "pid": 0,
+                "path": "null"
+            },
+            {
+                "id": 103,
+                "authName": "活动管理",
+                "level": "1",
+                "pid": 0,
+                "path": "null"
+            }
+        ],
+        "meta": {
+            "msg": "获取权限列表成功",
+            "status": 200
+        }
+    }
+})
+
+/*获取所有权限列表*/
+Mock.mock(RegExp('http://localhost:8081/test/rights/tree'), 'get', () => {
+
+    return {
+        data: [
+            {
+                id: 101,
+                authName: '活动管理',
+                path: null,
+                pid: 0,
+                children: [
+                    {
+                        id: 1001,
+                        authName: '活动列表',
+                        path: null,
+                        pid: 101,
+                        children: [
+                            {
+                                id: 10001,
+                                authName: '添加活动',
+                                path: null,
+                                pid: '104,101'
+                            },
+                            {
+                                id: 10002,
+                                authName: '删除活动',
+                                path: null,
+                                pid: '104,101'
+                            },
+                            {
+                                id: 10003,
+                                authName: '修改活动',
+                                path: null,
+                                pid: '104,101'
+                            },
+                            {
+                                id: 10004,
+                                authName: '参加活动',
+                                path: null,
+                                pid: '104,101'
+                            }
+                        ]
+                    }
+                ]
+            }, {
+                id: 102,
+                authName: '权限管理',
+                path: null,
+                pid: 0,
+                children: [
+                    {
+                        id: 1002,
+                        authName: '角色列表',
+                        path: null,
+                        pid: 101,
+                        children: [
+                            {
+                                id: 10005,
+                                authName: '创建角色',
+                                path: null,
+                                pid: '104,101'
+                            },
+                            {
+                                id: 10006,
+                                authName: '删除角色',
+                                path: null,
+                                pid: '104,101'
+                            },
+                            {
+                                id: 10007,
+                                authName: '编辑角色',
+                                path: null,
+                                pid: '104,101'
+                            },
+                            {
+                                id: 10008,
+                                authName: '分配权限',
+                                path: null,
+                                pid: '104,101'
+                            }
+                        ]
+                    },
+                    {
+                        id: 1003,
+                        authName: '权限列表',
+                        path: null,
+                        pid: 101,
+                        children: [{
+                            id: 10014,
+                            authName: '查看用户权限',
+                            path: null,
+                            pid: '104,101'
+                        }]
+                    }
+                ]
+            }, {
+                id: 103,
+                authName: '用户管理',
+                path: null,
+                pid: 0,
+                children: [
+                    {
+                        id: 1004,
+                        authName: '用户列表',
+                        path: null,
+                        pid: 101,
+                        children: [
+                            {
+                                id: 10009,
+                                authName: '添加用户',
+                                path: null,
+                                pid: '104,101'
+                            },
+                            {
+                                id: 10010,
+                                authName: '删除用户',
+                                path: null,
+                                pid: '104,101'
+                            },
+                            {
+                                id: 10011,
+                                authName: '编辑用户',
+                                path: null,
+                                pid: '104,101'
+                            },
+                            {
+                                id: 10012,
+                                authName: '分配角色',
+                                path: null,
+                                pid: '104,101'
+                            },
+                            {
+                                id: 10013,
+                                authName: '控制状态',
+                                path: null,
+                                pid: '104,101'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        meta: {
+            msg: '获取权限列表成功',
+            status: 200
+        }
+    }
+})
+
+/*获取所有角色列表*/
+Mock.mock(RegExp('http://localhost:8081/test/roles'), 'get', () => {
+
+    return {
+        "data": [
+            {
+                "id": 30,
+                "roleName": "超级管理员",
+                "roleDesc": "技术负责人",
+                "children": [
+                    {
+                        "id": 101,
+                        "authName": "活动管理",
+                        "path": null,
+                        "children": [
+                            {
+                                "id": 1001,
+                                "authName": "活动列表",
+                                "path": null,
+                                "children": [
+                                    {
+                                        "id": 10001,
+                                        "authName": "添加活动",
+                                        "path": null
+                                    }, {
+                                        "id": 10002,
+                                        "authName": "删除活动",
+                                        "path": null
+                                    }, {
+                                        "id": 10003,
+                                        "authName": "修改活动",
+                                        "path": null
+                                    }, {
+                                        "id": 10004,
+                                        "authName": "参加活动",
+                                        "path": null
+                                    }
+                                ]
+                            }
+                        ]
+                    }, {
+                        "id": 102,
+                        "authName": "权限管理",
+                        "path": null,
+                        "children": [
+                            {
+                                "id": 1002,
+                                "authName": "角色列表",
+                                "path": null,
+                                "children": [
+                                    {
+                                        "id": 10005,
+                                        "authName": "创建角色",
+                                        "path": null
+                                    },
+                                    {
+                                        "id": 10006,
+                                        "authName": "删除角色",
+                                        "path": null
+                                    },
+                                    {
+                                        "id": 10007,
+                                        "authName": "编辑角色",
+                                        "path": null
+                                    },
+                                    {
+                                        "id": 10008,
+                                        "authName": "分配权限",
+                                        "path": null
+                                    }
+                                ]
+                            }, {
+                                "id": 1003,
+                                "authName": "权限列表",
+                                "path": null,
+                                "children": [
+                                    {
+                                        "id": 10014,
+                                        "authName": "查看用户权限",
+                                        "path": null
+                                    }
+                                ]
+                            }
+                        ]
+                    }, {
+                        "id": 103,
+                        "authName": "用户管理",
+                        "path": null,
+                        "children": [
+                            {
+                                "id": 1004,
+                                "authName": "用户列表",
+                                "path": null,
+                                "children": [
+                                    {
+                                        "id": 10009,
+                                        "authName": "添加用户",
+                                        "path": null
+                                    },
+                                    {
+                                        "id": 10010,
+                                        "authName": "删除用户",
+                                        "path": null
+                                    },
+                                    {
+                                        "id": 10011,
+                                        "authName": "编辑用户",
+                                        "path": null
+                                    },
+                                    {
+                                        "id": 10012,
+                                        "authName": "分配角色",
+                                        "path": null
+                                    }, {
+                                        "id": 10013,
+                                        "authName": "控制状态",
+                                        "path": null
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "meta": {
+            "msg": "获取成功",
+            "status": 200
+        }
+    }
+})
+
+/*添加角色API*/
+Mock.mock(RegExp('http://localhost:8081/test/addRoles'), 'post', () => {
+
+    return {
+        "data": {
+            "roleId": 40,
+            "roleName": "admin2",
+            "roleDesc": "admin2Desc"
+        },
+        "meta": {
+            "msg": "角色创建成功",
+            "status": 201
+        }
+    }
+})
+
+/*根据 ID 查询角色API*/
+Mock.mock(RegExp('http://localhost:8081/test/getrolebyid'), 'get', () => {
+
+    return {
+        "data": {
+            "roleId": 31,
+            "roleName": "测试角色",
+            "roleDesc": "测试负责人"
+        },
+        "meta": {
+            "msg": "获取成功",
+            "status": 200
+        }
+    }
+})
+
+/*编辑提交角色*/
+Mock.mock(RegExp('http://localhost:8081/test/editroleinfobyid'), 'put', () => {
+
+    return {
+        "data": {
+            "roleId": 31,
+            "roleName": "测试角色",
+            "roleDesc": "测试角色描述"
+        },
+        "meta": {
+            "msg": "获取成功",
+            "status": 200
+        }
+    }
+})
+
+/*根据id删除角色*/
+Mock.mock(RegExp('http://localhost:8081/test/deleterole'), 'delete', () => {
+
+    return {
+        "data": null,
+        "meta": {
+            "msg": "删除成功",
+            "status": 200
+        }
+    }
+})
+
+/*删除角色指定的权限*/
+Mock.mock(RegExp('http://localhost:8081/test/rolesright'), 'delete', () => {
+
+    return {
+        "data": [
+            {
+                "id": 101,
+                "authName": "活动管理",
+                "path": null,
+                "children": [
+                    {
+                        "id": 1001,
+                        "authName": "活动列表",
+                        "path": null,
+                        "children": [
+                            {
+                                "id": 10001,
+                                "authName": "添加活动",
+                                "path": null
+                            }, {
+                                "id": 10002,
+                                "authName": "删除活动",
+                                "path": null
+                            }, {
+                                "id": 10003,
+                                "authName": "修改活动",
+                                "path": null
+                            }, {
+                                "id": 10004,
+                                "authName": "参加活动",
+                                "path": null
+                            }
+                        ]
+                    }
+                ]
+            }, {
+                "id": 102,
+                "authName": "权限管理",
+                "path": null,
+                "children": [
+                    {
+                        "id": 1002,
+                        "authName": "角色列表",
+                        "path": null,
+                        "children": [
+                            {
+                                "id": 10005,
+                                "authName": "创建角色",
+                                "path": null
+                            },
+                            {
+                                "id": 10006,
+                                "authName": "删除角色",
+                                "path": null
+                            },
+                            {
+                                "id": 10007,
+                                "authName": "编辑角色",
+                                "path": null
+                            },
+                            {
+                                "id": 10008,
+                                "authName": "分配权限",
+                                "path": null
+                            }
+                        ]
+                    }, {
+                        "id": 1003,
+                        "authName": "权限列表",
+                        "path": null,
+                        "children": []
+                    }
+                ]
+            }, {
+                "id": 103,
+                "authName": "用户管理",
+                "path": null,
+                "children": [
+                    {
+                        "id": 1004,
+                        "authName": "用户列表",
+                        "path": null,
+                        "children": [
+                            {
+                                "id": 10009,
+                                "authName": "添加用户",
+                                "path": null
+                            },
+                            {
+                                "id": 10010,
+                                "authName": "删除用户",
+                                "path": null
+                            },
+                            {
+                                "id": 10011,
+                                "authName": "编辑用户",
+                                "path": null
+                            },
+                            {
+                                "id": 10012,
+                                "authName": "分配角色",
+                                "path": null
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "meta": {
+            "msg": "删除成功",
+            "status": 200
+        }
+    }
+})
+
+/*角色授权*/
+Mock.mock(RegExp('http://localhost:8081/test/addRightToRoles'), 'post', () => {
+
+    return {
+        "data": null,
+        "meta": {
+            "msg": "更新成功",
+            "status": 200
+        }
+    }
+})
+
+/*分配用户角色*/
+Mock.mock(RegExp('http://localhost:8081/test/putusers'), 'put', () => {
+
+    return {
+        "data": {
+            "id": 508,
+            "rid": "30",
+            "username": "asdf1",
+            "mobile": "123123",
+            "email": "adfsa@qq.com"
+        },
+        "meta": {
+            "msg": "设置角色成功",
+            "status": 200
+        }
+    }
+})
 
 // post请求,带参数,参数会在data中返回,会返回url,type,body三个参数,可以把data打印出来看看
 Mock.mock('http://localhost:8081/test/cityInfo', 'post', (data) => {
