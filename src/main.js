@@ -26,6 +26,16 @@ Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(mock)
+Vue.filter('dataFormat', function (originVal) {
+    const dt = new Date(originVal)
+    const year = dt.getFullYear()
+    const month = (dt.getMonth() + 1 + '').padStart(2, '0')
+    const day = (dt.getDate() + '').padStart(2, '0')
+    const hour = (dt.getHours() + '').padStart(2, '0')
+    const minutes = (dt.getMinutes() + '').padStart(2, '0')
+    const seconds = (dt.getSeconds() + '').padStart(2, '0')
+    return `${year}-${month}-${day} ${hour}:${minutes}:${seconds}`
+})
 
 new Vue({
     router,

@@ -722,6 +722,140 @@ Mock.mock(RegExp('http://localhost:8081/test/putusers'), 'put', () => {
     }
 })
 
+/*活动列表数据*/
+Mock.mock(RegExp('http://localhost:8081/test/activity'), 'get', () => {
+
+    return {
+        "data": {
+            "total": 3,
+            "pagenum": "1",
+            "activities": [
+                {
+                    "activity_id": 144,
+                    "activity_name": "asfdsd",
+                    "activity_desc": "这是一个活动活动",
+                    "activity_limit_num": 40,
+                    "activity_term": 1,
+                    "activity_start_time": 1512954923,
+                    "activity_end_time": 1512954923,
+                    "activity_deadline": 1512954923,
+                    "activity_signIn_time": 1512954923,
+                    "activity_signOut_time": 1512954923,
+                    "activity_site": "威海校区"
+                }, {
+                    "activity_id": 145,
+                    "activity_name": "zxc",
+                    "activity_desc": "这是一个活动活动",
+                    "activity_limit_num": 40,
+                    "activity_term": 1,
+                    "activity_start_time": 1512954923,
+                    "activity_end_time": 1512954923,
+                    "activity_deadline": 1512954923,
+                    "activity_signIn_time": 1512954923,
+                    "activity_signOut_time": 1512954923
+                }, {
+                    "activity_id": 146,
+                    "activity_name": "zwx",
+                    "activity_desc": "这是一个活动活动",
+                    "activity_limit_num": 40,
+                    "activity_term": 1,
+                    "activity_start_time": 1512954923,
+                    "activity_end_time": 1512954923,
+                    "activity_deadline": 1512954923,
+                    "activity_signIn_time": 1512954923,
+                    "activity_signOut_time": 1512954923
+                }
+            ]
+        },
+        "meta": {
+            "msg": "获取成功",
+            "status": 200
+        }
+    }
+})
+
+/*根据ID删除活动*/
+Mock.mock(RegExp('http://localhost:8081/test/deleteActivitiesById'), 'delete', () => {
+
+    return {
+        "data": null,
+        "meta": {
+            "msg": "删除成功",
+            "status": 200
+        }
+    }
+})
+
+/*添加活动*/
+Mock.mock(RegExp('http://localhost:8081/test/addActivities'), 'post', () => {
+
+    return {
+        "data": {
+            "activity_id": 144,
+            "activity_name": "asfdsd",
+            "activity_desc": "这是一个活动活动",
+            "activity_limit_num": 40,
+            "activity_term": 1,
+            "activity_start_time": 1512954923,
+            "activity_end_time": 1512954923,
+            "activity_deadline": 1512954923,
+            "activity_signIn_time": 1512954923,
+            "activity_signOut_time": 1512954923,
+            "activity_site": "威海校区"
+        },
+        "meta": {
+            "msg": "创建活动成功",
+            "status": 201
+        }
+    }
+})
+
+/*根据ID查活动*/
+Mock.mock(RegExp('http://localhost:8081/test/getactivitybyid'), 'get', () => {
+
+    return {
+        "data": {
+            "activity_name": "asfdsd",
+            "activity_desc": "这是一个活动活动",
+            "activity_limit_num": 40,
+            "activity_term": 1,
+            "activity_start_time": 1512954923,
+            "activity_end_time": 1512954923,
+            "activity_deadline": 1512954923,
+            "activity_signIn_time": 1512954923,
+            "activity_signOut_time": 1512954923,
+            "activity_site": "威海校区"
+        },
+        "meta": {
+            "msg": "获取成功",
+            "status": 200
+        }
+    }
+})
+
+/*编辑提交活动*/
+Mock.mock(RegExp('http://localhost:8081/test/editactivityinfobyid'), 'put', () => {
+
+    return {
+        "data": {
+            "activity_name": "asfdsd",
+            "activity_desc": "这是一个活动活动",
+            "activity_limit_num": 40,
+            "activity_term": 1,
+            "activity_start_time": 1512954923,
+            "activity_end_time": 1512954923,
+            "activity_deadline": 1512954923,
+            "activity_signIn_time": 1512954923,
+            "activity_signOut_time": 1512954923,
+            "activity_site": "威海校区"
+        },
+        "meta": {
+            "msg": "提交成功",
+            "status": 200
+        }
+    }
+})
+
 // post请求,带参数,参数会在data中返回,会返回url,type,body三个参数,可以把data打印出来看看
 Mock.mock('http://localhost:8081/test/cityInfo', 'post', (data) => {
     // 请求传过来的参数在body中,传回的是json字符串,需要转义一下
