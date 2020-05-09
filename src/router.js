@@ -9,7 +9,6 @@ import Rights from "@/components/power/Rights";
 import Roles from "@/components/power/Roles";
 import ActivityList from "@/components/activity/ActivityList";
 import Add from "@/components/activity/Add";
-import Detail from "@/components/activity/Detail";
 
 
 Vue.use(Router)
@@ -29,9 +28,7 @@ const router = new Router(
                     {path: '/authorize', component: Rights},
                     {path: '/roles', component: Roles},
                     {path: '/workList', component: ActivityList},
-                    {path: '/workList/add', component: Add},
-                    {path: '/workList/detail', component: Detail}
-
+                    {path: '/workList/add', component: Add}
                 ]
             }
         ]
@@ -45,9 +42,10 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
         return next()
     }
+    if (to.path === '/activity') return next('/activity')
     // 获取token
     const tokenstr = window.sessionStorage.getItem('token')
-    if (!tokenstr) return next('/login')
+    if (!tokenstr && to.path !== '/activity') return next('/login')
     next()
 })
 

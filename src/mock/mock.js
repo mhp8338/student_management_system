@@ -815,6 +815,7 @@ Mock.mock(RegExp('http://localhost:8081/test/getactivitybyid'), 'get', () => {
 
     return {
         "data": {
+            "activity_id": 1,
             "activity_name": "asfdsd",
             "activity_desc": "这是一个活动活动",
             "activity_limit_num": 40,
@@ -838,6 +839,7 @@ Mock.mock(RegExp('http://localhost:8081/test/editactivityinfobyid'), 'put', () =
 
     return {
         "data": {
+            "activity_id": 1,
             "activity_name": "asfdsd",
             "activity_desc": "这是一个活动活动",
             "activity_limit_num": 40,

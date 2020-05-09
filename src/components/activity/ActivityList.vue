@@ -38,6 +38,9 @@
                         <el-tooltip effect="dark" content="活动详情" placement="top" :enterable="false">
                             <el-button type="warning" icon="el-icon-document" size="mini"
                                        @click="showDetailDialog(scope.row.activity_id)"></el-button>
+                            <!--<el-button type="warning" icon="el-icon-document" size="mini"
+                                       @click="goDetailPage">
+                            </el-button>-->
                         </el-tooltip>
                     </template>
                 </el-table-column>
@@ -56,7 +59,7 @@
 
         <!--修改活动对话框-->
         <el-dialog
-                title="修改用户"
+                title="修改活动"
                 :visible.sync="editDialogVisible"
                 width="60%" @close="editDialogClose">
             <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="110px">
@@ -110,6 +113,9 @@
                 <el-form-item label="签到位置" prop="activity_site" label-width="110px">
                     <el-input v-model="editForm.activity_site"></el-input>
                 </el-form-item>
+                <el-amap ref="map" vid="amapDemo" :amap-manager="amapManager" :center="center" :zoom="zoom"
+                         :plugin="plugin" :events="events" class="amap-demo">
+                </el-amap>
             </el-form>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="editDialogVisible = false">取 消</el-button>
@@ -121,7 +127,7 @@
         <el-dialog
                 title="活动详情"
                 :visible.sync="detailDialogVisible"
-                width="60%" @close="editDialogClose">
+                width="60%" @close="clearCode">
             <div>
                 <p>活动名称：{{editForm.activity_name}}</p>
                 <p>活动描述：{{editForm.activity_desc}}</p>
@@ -134,13 +140,22 @@
                 <p>签到结束时间：{{editForm.activity_signOut_time| dataFormat}}</p>
                 <p>签到位置：{{editForm.activity_site}}</p>
             </div>
+            <div id="query">
+                <h1>二维码：</h1>
+                <div id="qrcode" ref="qrcode"></div>
+            </div>
         </el-dialog>
     </div>
 </template>
 
 <script>
+    import VueAMap from 'vue-amap'
+    import QRCode from 'qrcodejs2'
+
+    let amapManager = new VueAMap.AMapManager();
     export default {
         data() {
+            let self = this
             return {
                 /*查询参数对应对象*/
                 queryInfo: {
@@ -187,7 +202,32 @@
                     activity_site: [
                         {required: true, message: '请输入签到位置', trigger: 'blur'}
                     ]
-                }
+                },
+                /*地图相关*/
+                amapManager,
+                zoom: 16,
+                center: [116.343034, 39.950728],
+                address: '',
+                events: {
+                    click(e) {
+                        let {lng, lat} = e.lnglat;
+                        self.lng = lng
+                        self.lat = lat
+
+                        alert('已选择签到位置')
+                    }
+                },
+                lng: 0,
+                lat: 0,
+                plugin: ['ToolBar', {
+                    pName: 'MapType',
+                    defaultType: 0,
+                    events: {
+                        init(o) {
+                            console.log(o);
+                        }
+                    }
+                }]
             }
         },
         created() {
@@ -245,13 +285,16 @@
                 }
                 this.editForm = res.data
                 this.detailDialogVisible = true
+                this.$nextTick(function () {
+                    this.creatQrCode();
+                })
             },
             /*修改用户信息并提交*/
             editUserInfo() {
                 this.$refs.editFormRef.validate(async valid => {
                     if (!valid) return
                     //发起修改用户信息请求
-                    const {data: res} = await this.$http.put('editactivityinfobyid/' + this.editForm.id, {
+                    const {data: res} = await this.$http.put('editactivityinfobyid/' + this.editForm.activity_id, {
                         activity_name: this.editForm.activity_name,
                         activity_desc: this.editForm.activity_desc,
                         activity_limit_num: this.editForm.activity_limit_num,
@@ -261,8 +304,8 @@
                         activity_deadline: this.editForm.activity_deadline,
                         activity_signIn_time: this.editForm.activity_signIn_time,
                         activity_signOut_time: this.editForm.activity_signOut_time,
-                        activity_site: this.editForm.activity_site
-
+                        activity_site: this.editForm.activity_site,
+                        loc: {lng: this.lng, lat: this.lat}
                     })
                     if (res.meta.status !== 200) {
                         return this.$message.error('更新活动信息失败')
@@ -277,11 +320,30 @@
 
                 })
 
+            },
+            creatQrCode() {
+                // eslint-disable-next-line no-unused-vars
+                let qrcode = new QRCode('qrcode', {
+                    width: 132,
+                    height: 132,
+                    text: 'http://localhost:8080/#/activity/' + this.editForm.activity_id, // 二维码地址
+                    colorDark: "#000",
+                    colorLight: "#fff",
+                })
+            },
+            clearCode() {
+                document.getElementById('qrcode').innerHTML = ''
             }
-        }
+
+        },
+        mounted() {
+            this.creatQrCode();
+        },
     }
 </script>
 
 <style lang="less" scoped>
-
+    .amap-demo {
+        height: 250px;
+    }
 </style>

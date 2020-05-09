@@ -11,6 +11,8 @@ import './assets/css/global.css'
 import './mock/mock.js'
 import axios from 'axios';
 import mock from 'mockjs'
+import VueAMap from 'vue-amap';
+
 
 /*配置请求根路径*/
 axios.defaults.baseURL = 'http://localhost:8081/test'
@@ -26,6 +28,14 @@ Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(mock)
+Vue.use(VueAMap)
+
+VueAMap.initAMapApiLoader({
+    key: '08547378df03af7f3ed8c7360131b3b1',
+    plugin: ['AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'Geocoder'],
+    v: '1.4.4'
+});
+
 Vue.filter('dataFormat', function (originVal) {
     const dt = new Date(originVal)
     const year = dt.getFullYear()

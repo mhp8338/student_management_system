@@ -76,8 +76,11 @@
                             </el-date-picker>
                         </el-form-item>
                         <el-form-item label="签到位置" prop="activity_site" label-width="120px">
-                            <el-input v-model="addForm.activity_site" style="width: 220px"></el-input>
+                            <el-input v-model="addForm.activity_site"></el-input>
                         </el-form-item>
+                        <el-amap ref="map" vid="amapDemo" :amap-manager="amapManager" :center="center" :zoom="zoom"
+                                 :plugin="plugin" :events="events" class="amap-demo">
+                        </el-amap>
                         <el-button type="primary" @click="add">添加活动</el-button>
                     </el-tab-pane>
                 </el-tabs>
@@ -88,8 +91,12 @@
 </template>
 
 <script>
+    import VueAMap from 'vue-amap'
+
+    let amapManager = new VueAMap.AMapManager();
     export default {
         data() {
+            let self = this
             return {
                 activeIndex: '0',
                 /*添加活动的表单数据对象*/
@@ -134,9 +141,35 @@
                         {type: 'date', required: true, message: '请选择签到结束的时间', trigger: 'change'}
                     ],
                     activity_site: [
-                        {required: true, message: '请输入签到位置', trigger: 'blur'}
+                        {required: true, message: '请填写详细的位置信息', trigger: 'blur'}
                     ]
-                }
+
+                },
+                /*地图相关*/
+                amapManager,
+                zoom: 16,
+                center: [116.343034, 39.950728],
+                address: '',
+                events: {
+                    click(e) {
+                        let {lng, lat} = e.lnglat;
+                        self.lng = lng
+                        self.lat = lat
+
+                        alert('已选择签到位置')
+                    }
+                },
+                lng: 0,
+                lat: 0,
+                plugin: ['ToolBar', {
+                    pName: 'MapType',
+                    defaultType: 0,
+                    events: {
+                        init(o) {
+                            console.log(o);
+                        }
+                    }
+                }]
             }
         },
         created() {
@@ -166,20 +199,23 @@
                 this.$refs.addFormRef.validate(async valid => {
                     if (!valid) return this.$message.error('请填写必要的表单项目')
                     /*执行添加的业务逻辑*/
-                    const {data: res} = await this.$http.post('addActivities', this.addForm);
-                    if(res.meta.status !== 201){
+                    const {data: res} = await this.$http.post('addActivities', {
+                        form: this.addForm,
+                        loc: {lng: this.lng, lat: this.lat}
+                    });
+                    if (res.meta.status !== 201) {
                         return this.$message.error('添加活动失败!')
                     }
                     this.$message.success('添加活动成功')
                     await this.$router.push('/workList')
                 })
-
-
             }
         }
     }
 </script>
 
 <style lang="less" scoped>
-
+    .amap-demo {
+        height: 300px;
+    }
 </style>
