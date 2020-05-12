@@ -38,9 +38,7 @@
                         <el-tooltip effect="dark" content="活动详情" placement="top" :enterable="false">
                             <el-button type="warning" icon="el-icon-document" size="mini"
                                        @click="showDetailDialog(scope.row.activity_id)"></el-button>
-                            <!--<el-button type="warning" icon="el-icon-document" size="mini"
-                                       @click="goDetailPage">
-                            </el-button>-->
+
                         </el-tooltip>
                     </template>
                 </el-table-column>
@@ -335,10 +333,7 @@
                 document.getElementById('qrcode').innerHTML = ''
             }
 
-        },
-        mounted() {
-            this.creatQrCode();
-        },
+        }
     }
 </script>
 
